@@ -9,15 +9,22 @@ from langchain_google_genai import (
 
 load_dotenv()
 
+llm = ChatGoogleGenerativeAI(
+    model="gemini-pro",
+    safety_settings={
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+    },
+)
+
+
 youtube_url = input("Enter the Youtube URL you want to interact with!! ")
-print("Working")
 def get_youtube_transcript(url):
     loader = YoutubeLoader.from_youtube_url(url)
     documents = loader.load()
-    return documents
+    return documents[0]
 
-documents = get_youtube_transcript(youtube_url)
-transcript_text = documents[0]
+# documents = get_youtube_transcript(youtube_url)
+# transcript_text = documents[0]
 
 llm = ChatGoogleGenerativeAI(
     model="gemini-pro",
@@ -30,7 +37,7 @@ def asking_question():
     while True:
         interact = input("What you want to know about the video?")
         if interact != 'q':
-            response = llm.invoke(f"{interact} : {transcript_text}")
+            response = llm.invoke(f"{interact} : {get_youtube_transcript(url=youtube_url)}")
             print(response.content)
         else:
             return None

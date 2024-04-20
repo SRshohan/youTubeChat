@@ -1,0 +1,18 @@
+# Core libraries
+streamlit
+youtube-transcript-api
+python-dotenv
+requests
+
+# LangChain and dependencies for AI and machine learning models
+langchain
+transformers
+torch
+
+# Google API and storage libraries for accessing Google Cloud services
+google-cloud-storage
+google-api-python-client
+
+# Libraries for data manipulation and numerical operations
+pandas
+numpy

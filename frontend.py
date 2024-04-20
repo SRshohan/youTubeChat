@@ -1,6 +1,9 @@
 import streamlit as st
 import random
 import time
+import summerizer
+
+transcript_text = summerizer.asking_question()
 
 # Streamed response emulator
 def response_generator():
@@ -14,7 +17,7 @@ def response_generator():
     for word in response.split():
         yield word + " "
         time.sleep(0.05)
-        
+
 st.title('YouTube Chat')
 
 # Initialize chat history
@@ -36,6 +39,6 @@ if prompt := st.chat_input("what is up?"):
                                       })
     # Display assistant response in chat message container
     with st.chat_message("assistant"):
-        response = st.write_stream(response_generator())
+        response = st.write_stream(transcript_text)
     # Add assistant response to chat history
     st.session_state.messages.append({"role": "assistant", "content": response})

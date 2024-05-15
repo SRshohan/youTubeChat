@@ -13,14 +13,14 @@ dotenv = f".env.{password}"
 load_dotenv(dotenv_path=dotenv)
 
 
-def load_llm():
+def load_llm(user_input):
     llm = ChatGoogleGenerativeAI(
         model="gemini-pro",
         safety_settings={
             HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
         },
     )
-    return llm
+    return llm.invoke(user_input)
 
 
 def youtube_transcript(url):
@@ -28,10 +28,16 @@ def youtube_transcript(url):
     load = loader.load()
     doc = load[0]
     transcript = doc.page_content
-    return transcript
+    with open("storing_transcript.txt", "w") as file:
+        file.write(transcript)
+
+
+def delete_data():
+    open("storing_transcript.txt", "w").close()
 
 
 if __name__ == '__main__':
     # content = load_llm().invoke(" Write me a peom")
     # print(content.content)
     youtube_transcript('https://www.youtube.com/watch?v=0IAPZzGSbME&list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O')
+    delete_data()

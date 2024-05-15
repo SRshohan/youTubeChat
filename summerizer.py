@@ -1,4 +1,6 @@
+import os
 from dotenv import load_dotenv
+from langchain.schema import Document
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_community.document_loaders import YoutubeLoader
 from langchain_google_genai import (
@@ -7,7 +9,10 @@ from langchain_google_genai import (
     HarmCategory,
 )
 
-load_dotenv()
+password = os.getenv('ENV', 'local')
+dotenv = f".env.{password}"
+load_dotenv(dotenv_path=dotenv)
+
 
 def load_llm():
     llm = ChatGoogleGenerativeAI(
@@ -19,27 +24,15 @@ def load_llm():
     return llm
 
 
-# youtube_url = input("Enter the Youtube URL you want to interact with!! ")
-def get_youtube_transcript(url):
-    loader = YoutubeLoader.from_youtube_url(url)
-    documents = loader.load()
-    return documents[0]
+def youtube_transcript(url):
+    loader = YoutubeLoader.from_youtube_url(url, add_video_info=False)
+    load = loader.load()
+    document = {load[0]}
+    transcript = document["page_content"]
+    print(transcript)
 
 
-# documents = get_youtube_transcript(youtube_url)
-# transcript_text = documents[0]
-
-
-def response_generator(interact,transcript):
-    while interact != ('q' or 'quit' or 'stop'):
-        response = load_llm().invoke(f"{interact} : {transcript}")
-        return response
-# def asking_question(interact):
-#     while True:
-#         # interact = input("What you want to know about the video?")
-#         if interact != 'q':
-#             response = llm.invoke(f"{interact} : {get_youtube_transcript(url)}")
-#             print(response.content)
-#         else:
-#             return None
-# asking_question()
+if __name__ == '__main__':
+    # content = load_llm().invoke(" Write me a peom")
+    # print(content.content)
+    youtube_transcript('https://www.youtube.com/watch?v=0IAPZzGSbME&list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O')

@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-from langchain.schema import Document
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_community.document_loaders import YoutubeLoader
 from langchain_google_genai import (
@@ -27,9 +26,9 @@ def load_llm():
 def youtube_transcript(url):
     loader = YoutubeLoader.from_youtube_url(url, add_video_info=False)
     load = loader.load()
-    document = {load[0]}
-    transcript = document["page_content"]
-    print(transcript)
+    doc = load[0]
+    transcript = doc.page_content
+    return transcript
 
 
 if __name__ == '__main__':

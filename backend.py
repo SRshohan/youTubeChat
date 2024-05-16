@@ -44,6 +44,8 @@ def storing_data(llm_AI_message):
     llm_AI_message = str(llm_AI_message)
     f = open("storing_transcript.txt", "w")
 
+
+    """--Converting AImessage to string format """
     content_start = llm_AI_message.find("content=' ") + len("content=' ")
     content_end = llm_AI_message.find("' response_metadata")
     content = llm_AI_message[content_start:content_end]
@@ -60,7 +62,6 @@ if __name__ == '__main__':
     llm = load_llm(user_input=user_input)
     storing_data(llm)
     print(llm)
-    # content = load_llm().invoke(" Write me a peom")
-    # print(content.content)
+   
     
     

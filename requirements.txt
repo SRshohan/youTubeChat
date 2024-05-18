@@ -1,8 +1,8 @@
 # Core libraries
 streamlit
-youtube-transcript-api
 python-dotenv
-requests
+langchain-google-genai
+langchain-community
 
 # LangChain and dependencies for AI and machine learning models
 langchain

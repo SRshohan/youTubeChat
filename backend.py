@@ -20,7 +20,7 @@ def load_llm(user_input):
             HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
         },
     )
-    return llm.invoke(user_input)
+    return llm.invoke(f"{user_input} {reading_doc()}")
 
 
 def youtube_transcript(url):
@@ -67,13 +67,13 @@ def storing_data_of_user(llm_AI_message):
 
 if __name__ == '__main__':
     # questions = input("Enter what you want to know about the video: ")
-    transcript = youtube_transcript('https://www.youtube.com/watch?v=0IAPZzGSbME&list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O')
-    storing_data_for_transcript(transcript)
-    reading_data = reading_doc()
-    user_input = f"Tell me in one sentence  {reading_data}"
-    llm = load_llm(user_input=user_input)
-    print(storing_data_of_user(llm))
-    # delete_data()
+    # transcript = youtube_transcript('https://www.youtube.com/watch?v=0IAPZzGSbME&list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O')
+    # storing_data_for_transcript(transcript)
+    # reading_data = reading_doc()
+    # user_input = f"Tell me in one sentence  {reading_data}"
+    # llm = load_llm(user_input=user_input)
+    # print(storing_data_of_user(llm))
+    delete_data()
     
    
     

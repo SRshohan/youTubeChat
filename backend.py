@@ -13,14 +13,16 @@ dotenv = f".env.{password}"
 load_dotenv(dotenv_path=dotenv)
 
 
-def load_llm(user_input):
+async def load_llm(user_input):
     llm = ChatGoogleGenerativeAI(
         model="gemini-pro",
         safety_settings={
             HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
         },
     )
-    return llm.invoke(f"{user_input} {reading_doc()}")
+    response = llm.invoke(f"{user_input} {reading_doc()}")
+
+    return response
 
 
 def youtube_transcript(url):

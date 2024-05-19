@@ -22,7 +22,7 @@ for message in st.session_state.messages:
 
 # Form to input text and submit
 with st.form('my_form'):
-    text = st.text_area('Enter text:', 'What are the three key pieces of advice for learning how to code?')
+
     submitted = st.form_submit_button('Submit')
 
     # Validate YouTube link
@@ -44,8 +44,9 @@ if prompt := st.chat_input("Ask any question"):
     with st.chat_message("user"):
         st.markdown(prompt)
 
+    llm_response = asyncio.run(backend.load_llm(prompt))
     # Process the user's input and get the response from the backend
-    response = asyncio.run(backend.load_llm(prompt))
+    response = backend.storing_data_of_user(llm_AI_message=llm_response)
 
     # Display assistant's response
     with st.chat_message("assistant"):

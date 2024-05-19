@@ -62,7 +62,7 @@ def storing_data_of_user(llm_AI_message):
         content_start = llm_AI_message.find("content=' ") + len("content=' ")
         content_end = llm_AI_message.find("' response_metadata")
         content = llm_AI_message[content_start:content_end]
-        f.write(content + "\n")
+        f.write(content)
 
         return content
 
